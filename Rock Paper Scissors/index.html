@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="icon" href="./icon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <style>
+        .buttons {
+            min-width: 400px;
+            min-height: 40px;
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between container p-5">
+
+            <div id="player_div"><img src="rocks.png" alt="" class="img-fluid w-75"></div>
+        
+            <idv id="computer_div"><img src="rocks.png" alt="" class="img-fluid w-75"></idv>
+        </div>
+    
+        <div class="container d-flex justify-content-center p-5" >
+            <div class="ps-5" ><button onclick="play(this.value)" value="1" class="btn btn-primary buttons">Rock</button></div>
+            <div class="ps-5" ><button onclick="play(this.value)" value="2" class="btn btn-secondary buttons">Paper</button></div>
+            <div class="ps-5" ><button onclick="play(this.value)" value="3" class="btn btn-warning buttons">Scissor</button></div>
+            
+        </div>
+        <div class="d-flex justify-content-center p-5" >
+            <h1 id="winner_div"> </h1>
+        </div>
+    </div>
+    
+    <script>
+
+        
+        let winner_div = document.getElementById("winner_div");
+        let player_div = document.getElementById("player_div");
+        let computer_div = document.getElementById("computer_div");
+
+        function show_image(div, value) {
+            if (value === "rock") {
+                div.innerHTML = '<img src="rocks.png" alt="" class="img-fluid w-75">'
+            }
+            if (value === "paper") {
+                div.innerHTML = '<img src="paper.png" alt="" class="img-fluid w-75">'
+            }
+            if (value === "scissor") {
+                div.innerHTML = '<img src="scissors.png" alt="" class="img-fluid w-75">'
+            }
+        }
+        function play(player) {
+            const randomInt = Math.floor(Math.random() * 3) + 1; // Generate random number from 1 to 3
+
+            playerTurn = check_turn(player);
+            computerTurn = check_turn(randomInt);
+
+
+            
+
+            if (playerTurn === "rock") {
+                
+                if (computerTurn === "paper") {
+                    lose();
+                }
+                else if (computerTurn === "scissor") {
+                    win();
+                } else {
+                    draw();
+                }
+            }
+            else if (playerTurn === "paper") {
+                if (computerTurn === "rock") {
+                    win();
+                }
+                else if (computerTurn === "scissor") {
+                    lose();
+                } else {
+                    draw();
+                }
+            }
+            else if (playerTurn === "scissor") {
+                if (computerTurn === "paper") {
+                    win();
+                }
+                else if (computerTurn === "rock") {
+                    lose();
+                } else {
+                    draw();
+                }
+            }     
+            show_image(player_div, playerTurn);
+            show_image(computer_div, computerTurn);       
+        }
+
+        function draw() {
+            winner_div.innerHTML = "draw";
+        }
+        function lose() {
+            winner_div.innerHTML = "lose";
+        }
+        function win() {
+            winner_div.innerHTML = "win";
+        }
+
+        function check_turn(computer) {
+            if (computer == 1) {
+                return "rock";
+            }
+            else if (computer == 2) {
+                return "paper";
+            }
+            else if (computer == 3) {
+                return "scissor";
+            }
+        }
+    </script>
+</body>
+</html>
